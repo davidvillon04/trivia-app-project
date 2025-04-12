@@ -48,3 +48,13 @@ body {
 .answer-button:hover {
    background-color: #182f3b;
 }
+
+/* When an answer is correct, turn it green */
+.answer-button.correct {
+   background-color: #4caf50;
+}
+
+/* When an answer is wrong, turn it red */
+.answer-button.wrong {
+   background-color: #f44336;
+}
