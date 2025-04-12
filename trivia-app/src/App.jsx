@@ -3,6 +3,7 @@ import { Container, Button } from "@mui/material";
 import QuestionCard from "./components/QuestionCard";
 import SettingsForm from "./components/SettingsForm";
 import ScoreDisplay from "./components/ScoreDisplay";
+import ResultsPanel from "./components/ResultsPanel";
 import "./styles.css";
 
 function App() {
@@ -85,8 +86,7 @@ function App() {
    }, [allAnswered]);
 
    const handleCategoryChange = (e) => setSelectedCategory(e.target.value);
-   const handleNumQuestionsChange = (e) =>
-      setNumQuestions(Math.min(25, Math.max(1, e.target.value))); // Ensure value is between 1 and 25
+   const handleNumQuestionsChange = (e) => setNumQuestions(Math.min(25, Math.max(1, e.target.value))); // Ensure value is between 1 and 25
 
    return (
       <Container maxWidth="sm" className="container">
@@ -115,21 +115,12 @@ function App() {
                      key={index}
                      questionObj={question}
                      selectedAnswer={selectedAnswers[index]}
-                     onAnswerSelected={(answer) =>
-                        handleAnswer(index, answer, question.correctAnswer)
-                     }
+                     onAnswerSelected={(answer) => handleAnswer(index, answer, question.correctAnswer)}
                   />
                ))}
 
                {allAnswered && (
-                  <div className="results">
-                     <p>
-                        Final Score: {score}/{questions.length}
-                     </p>
-                     <Button variant="contained" onClick={fetchQuestions} disabled={!allAnswered}>
-                        Play Again
-                     </Button>
-                  </div>
+                  <ResultsPanel score={score} totalQuestions={questions.length} onPlayAgain={fetchQuestions} />
                )}
             </>
          )}
