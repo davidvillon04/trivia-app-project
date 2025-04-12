@@ -73,7 +73,8 @@ function App() {
       }
    };
 
-   const allAnswered = selectedAnswers.every((answer) => answer !== null); // Check if all questions have been answered
+   // Check if all questions have been answered
+   const allAnswered = selectedAnswers.every((answer) => answer !== null);
 
    // Scroll to the bottom when all questions are answered
    useEffect(() => {
@@ -86,7 +87,10 @@ function App() {
    }, [allAnswered]);
 
    const handleCategoryChange = (e) => setSelectedCategory(e.target.value);
-   const handleNumQuestionsChange = (e) => setNumQuestions(Math.min(25, Math.max(1, e.target.value))); // Ensure value is between 1 and 25
+
+   // Ensure value is between 1 and 25
+   const handleNumQuestionsChange = (e) =>
+      setNumQuestions(Math.min(25, Math.max(1, e.target.value)));
 
    return (
       <Container maxWidth="sm" className="container">
@@ -115,12 +119,18 @@ function App() {
                      key={index}
                      questionObj={question}
                      selectedAnswer={selectedAnswers[index]}
-                     onAnswerSelected={(answer) => handleAnswer(index, answer, question.correctAnswer)}
+                     onAnswerSelected={(answer) =>
+                        handleAnswer(index, answer, question.correctAnswer)
+                     }
                   />
                ))}
 
                {allAnswered && (
-                  <ResultsPanel score={score} totalQuestions={questions.length} onPlayAgain={fetchQuestions} />
+                  <ResultsPanel
+                     score={score}
+                     totalQuestions={questions.length}
+                     onPlayAgain={fetchQuestions}
+                  />
                )}
             </>
          )}
