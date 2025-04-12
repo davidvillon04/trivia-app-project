@@ -60,6 +60,7 @@ body {
    background-color: #f44336;
 }
 
+/* Disable button styling */
 .answer-button:disabled {
    opacity: 0.8;
    cursor: not-allowed;
