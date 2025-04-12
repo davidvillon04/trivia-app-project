@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import QuestionCard from "./components/QuestionCard";
 import SettingsForm from "./components/SettingsForm";
 import ScoreDisplay from "./components/ScoreDisplay";
 import ResultsPanel from "./components/ResultsPanel";
+import QuizIcon from "@mui/icons-material/Quiz";
 import "./styles.css";
 
 function App() {
@@ -94,7 +95,27 @@ function App() {
 
    return (
       <Container maxWidth="sm" className="container">
-         <h3 className="heading">Trivia Game</h3>
+         <Box
+            sx={{
+               display: "flex",
+               alignItems: "center",
+               justifyContent: "center",
+               gap: 2,
+               my: 4,
+            }}
+         >
+            <QuizIcon
+               sx={{
+                  fontSize: "2.5rem",
+                  color: "white",
+                  transition: "transform 0.3s ease",
+                  "&:hover": {
+                     transform: "rotate(-30deg)",
+                  },
+               }}
+            />
+            <h3 className="heading">Trivia Game</h3>
+         </Box>
 
          <SettingsForm
             categories={categories}
