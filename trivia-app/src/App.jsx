@@ -27,15 +27,6 @@ function App() {
       fetchQuestions();
    }, []);
 
-   // Function to handle answer selection
-   const handleAnswerClick = (selectedAnswer, correctAnswer) => {
-      if (selectedAnswer === correctAnswer) {
-         alert("Correct!");
-      } else {
-         alert("Incorrect!");
-      }
-   };
-
    if (loading) {
       return (
          <Container maxWidth="sm" className="container">
@@ -57,7 +48,7 @@ function App() {
          <h3 className="heading">Trivia Game</h3>
 
          {questions.map((question, index) => (
-            <QuestionCard key={index} questionObj={question} onAnswerSelected={handleAnswerClick} />
+            <QuestionCard key={index} questionObj={question} />
          ))}
       </Container>
    );
