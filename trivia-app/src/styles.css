@@ -58,3 +58,8 @@ body {
 .answer-button.wrong {
    background-color: #f44336;
 }
+
+.answer-button:disabled {
+   opacity: 0.8;
+   cursor: not-allowed;
+}
