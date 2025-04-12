@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Button } from "@mui/material";
 import QuestionCard from "./components/QuestionCard";
 import SettingsForm from "./components/SettingsForm";
+import ScoreDisplay from "./components/ScoreDisplay";
 import "./styles.css";
 
 function App() {
@@ -107,9 +108,7 @@ function App() {
 
          {!loading && questions.length > 0 && (
             <>
-               <div className="score">
-                  Score: {score} / {questions.length}
-               </div>
+               <ScoreDisplay score={score} total={questions.length} />
 
                {questions.map((question, index) => (
                   <QuestionCard
