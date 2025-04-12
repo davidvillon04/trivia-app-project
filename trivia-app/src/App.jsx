@@ -1,7 +1,7 @@
-// App.jsx
 import React, { useEffect, useState } from "react";
-import { Container, Button, TextField, MenuItem } from "@mui/material";
+import { Container, Button } from "@mui/material";
 import QuestionCard from "./components/QuestionCard";
+import SettingsForm from "./components/SettingsForm";
 import "./styles.css";
 
 function App() {
@@ -54,6 +54,8 @@ function App() {
          setQuestions([]);
       } finally {
          setLoading(false);
+
+         window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top after fetching questions
       }
    };
 
@@ -71,42 +73,36 @@ function App() {
 
    const allAnswered = selectedAnswers.every((answer) => answer !== null); // Check if all questions have been answered
 
+   // Scroll to the bottom when all questions are answered
+   useEffect(() => {
+      if (allAnswered) {
+         window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+         });
+      }
+   }, [allAnswered]);
+
+   const handleCategoryChange = (e) => setSelectedCategory(e.target.value);
+   const handleNumQuestionsChange = (e) =>
+      setNumQuestions(Math.min(25, Math.max(1, e.target.value))); // Ensure value is between 1 and 25
+
    return (
       <Container maxWidth="sm" className="container">
          <h3 className="heading">Trivia Game</h3>
-         <div className="settings-form">
-            <TextField
-               select
-               label="Category"
-               value={selectedCategory}
-               onChange={(e) => setSelectedCategory(e.target.value)}
-               fullWidth
-               margin="normal"
-            >
-               <MenuItem value="">Any Category</MenuItem>
-               {Object.entries(categories).map(([id, name]) => (
-                  <MenuItem key={id} value={id}>
-                     {name}
-                  </MenuItem>
-               ))}
-            </TextField>
 
-            <TextField
-               type="number"
-               label="Number of Questions"
-               value={numQuestions}
-               onChange={(e) => setNumQuestions(Math.min(25, Math.max(1, e.target.value)))} // Ensure value is between 1 and 25
-               fullWidth
-               margin="normal"
-            />
-
-            <Button variant="contained" onClick={fetchQuestions} disabled={loading} fullWidth>
-               {questions.length ? "Get New Questions" : "Start Game"}
-            </Button>
-         </div>
+         <SettingsForm
+            categories={categories}
+            selectedCategory={selectedCategory}
+            numQuestions={numQuestions}
+            loading={loading}
+            questions={questions}
+            handleCategoryChange={handleCategoryChange}
+            handleNumQuestionsChange={handleNumQuestionsChange}
+            handleFetchQuestions={fetchQuestions}
+         />
 
          {error && <p className="error">{error}</p>}
-
          {loading && <p>Loading questions...</p>}
 
          {!loading && questions.length > 0 && (
