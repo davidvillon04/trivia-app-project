@@ -1,24 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import AnswerButton from "./AnswerButton";
 import "../styles.css";
 
-const QuestionCard = ({ questionObj, onAnswerSelected }) => {
-   const questionText = questionObj.question.text;
-   const correctAnswer = questionObj.correctAnswer;
-   const incorrectAnswers = questionObj.incorrectAnswers;
-   const allAnswers = [correctAnswer, ...incorrectAnswers].sort(() => Math.random() - 0.5); // Shuffle answers
+const QuestionCard = ({ questionObj }) => {
+   const [selectedAnswer, setSelectedAnswer] = useState(null); // Track selected answer
+   const [shuffledAnswers, setShuffledAnswers] = useState([]); // Track shuffled answers
+
+   const { question, correctAnswer, incorrectAnswers } = questionObj;
+
+   // Shuffle answers when the component mounts or when the question changes
+   useEffect(() => {
+      const answers = [correctAnswer, ...incorrectAnswers];
+      const shuffled = [...answers].sort(() => Math.random() - 0.5);
+      setShuffledAnswers(shuffled);
+   }, [correctAnswer, incorrectAnswers]);
 
    return (
       <div className="question-card">
-         <p>{questionText}</p>
+         <p>{question.text}</p>
          <div className="answer-container">
-            {allAnswers.map((answer, index) => (
-               <button
+            {shuffledAnswers.map((answer, index) => (
+               <AnswerButton
                   key={index}
-                  className="answer-button"
-                  onClick={() => onAnswerSelected(answer, correctAnswer)}
-               >
-                  {answer}
-               </button>
+                  answer={answer}
+                  isCorrect={answer === correctAnswer}
+                  isSelected={answer === selectedAnswer}
+                  isDisabled={selectedAnswer !== null}
+                  onSelect={setSelectedAnswer}
+               />
             ))}
          </div>
       </div>
