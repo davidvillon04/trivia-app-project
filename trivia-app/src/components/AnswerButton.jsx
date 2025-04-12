@@ -1,19 +1,19 @@
 import React from "react";
 import "../styles.css";
 
-const AnswerButton = ({ answer, isCorrect, isSelected, onSelect, isDisabled }) => {
-   let buttonClass = "answer-button";
+const AnswerButton = ({ answer, correctAnswer, selectedAnswer, onSelect }) => {
+   const isSelected = answer === selectedAnswer;
+   const isCorrect = answer === correctAnswer;
+   const showResults = selectedAnswer !== null;
 
-   if (isDisabled) {
-      if (isCorrect) {
-         buttonClass += " correct";
-      } else if (isSelected) {
-         buttonClass += " wrong";
-      }
+   let className = "answer-button";
+   if (showResults) {
+      if (isCorrect) className += " correct";
+      else if (isSelected) className += " wrong";
    }
 
    return (
-      <button className={buttonClass} onClick={() => onSelect(answer)} disabled={isDisabled}>
+      <button className={className} onClick={() => onSelect(answer)} disabled={showResults}>
          {answer}
       </button>
    );
