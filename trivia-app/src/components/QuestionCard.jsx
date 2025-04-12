@@ -12,14 +12,13 @@ const QuestionCard = ({ questionObj, onAnswerSelected }) => {
       <div className="question-card">
          <p>{questionText}</p>
          {allAnswers.map((answer, index) => (
-            <Button
+            <button
                key={index}
-               variant="contained"
                className="answer-button"
                onClick={() => onAnswerSelected(answer, correctAnswer)}
             >
                {answer}
-            </Button>
+            </button>
          ))}
       </div>
    );
