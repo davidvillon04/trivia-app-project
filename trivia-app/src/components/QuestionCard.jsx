@@ -11,15 +11,17 @@ const QuestionCard = ({ questionObj, onAnswerSelected }) => {
    return (
       <div className="question-card">
          <p>{questionText}</p>
-         {allAnswers.map((answer, index) => (
-            <button
-               key={index}
-               className="answer-button"
-               onClick={() => onAnswerSelected(answer, correctAnswer)}
-            >
-               {answer}
-            </button>
-         ))}
+         <div className="answer-container">
+            {allAnswers.map((answer, index) => (
+               <button
+                  key={index}
+                  className="answer-button"
+                  onClick={() => onAnswerSelected(answer, correctAnswer)}
+               >
+                  {answer}
+               </button>
+            ))}
+         </div>
       </div>
    );
 };

@@ -26,8 +26,13 @@ body {
 }
 
 /* Answer Button styling */
+.answer-container {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 0.5rem;
+}
+
 .answer-button {
-   display: block;
    width: 100%;
    margin: 0.5rem 0;
    padding: 0.75rem;
